@@ -1,0 +1,50 @@
+﻿@page
+@model CityBreaks.Agency.Pages.CreatePacoteTuristicoModel
+@{
+	ViewData["Title"] = "Cadastrar Pacote Turístico";
+}
+<div class="container mt-4">
+    <h1 class="mb-4">Cadastrar Novo Pacote Turístico</h1>
+    <p>Preencha os detalhes do pacote turístico.</p>
+
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PacoteInput.Titulo"></label>
+                    <input asp-for="PacoteInput.Titulo" class="form-control" />
+                    <span asp-validation-for="PacoteInput.Titulo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PacoteInput.DataInicio"></label>
+                    <input asp-for="PacoteInput.DataInicio" class="form-control" type="date" />
+                    <span asp-validation-for="PacoteInput.DataInicio" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PacoteInput.CapacidadeMaxima"></label>
+                    <input asp-for="PacoteInput.CapacidadeMaxima" class="form-control" type="number" />
+                    <span asp-validation-for="PacoteInput.CapacidadeMaxima" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PacoteInput.Preco"></label>
+                    <input asp-for="PacoteInput.Preco" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="PacoteInput.Preco" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Cadastrar Pacote</button>
+                <a asp-page="/Index" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ }

@@ -4,12 +4,13 @@ using System;
 using CityBreaks.Agency.Models;
 using System.Collections.Generic;
 using System.Linq;
+using CityBreaks.Agency.Utils;
 
 namespace CityBreaks.Agency.Pages
 {
     public class ManageCapacityModel : PageModel
     {
-        private static PacoteTuristico _staticCurrentPackage = new PacoteTuristico
+        private static SimulatedPacoteTuristicoForEvent _staticCurrentPackage = new SimulatedPacoteTuristicoForEvent
         {
             Id = 1,
             Titulo = "Aventura na Amazônia",
@@ -18,14 +19,13 @@ namespace CityBreaks.Agency.Pages
             Preco = 1500.00M
         };
 
-        public PacoteTuristico CurrentPackage => _staticCurrentPackage;
+        public SimulatedPacoteTuristicoForEvent CurrentPackage => _staticCurrentPackage;
 
         private Action<string> _consoleLogger;
 
         public ManageCapacityModel()
         {
             _consoleLogger = LogToConsole;
-
             _staticCurrentPackage.CapacityReached -= HandleCapacityReached;
             _staticCurrentPackage.CapacityReached += HandleCapacityReached;
         }
@@ -42,7 +42,7 @@ namespace CityBreaks.Agency.Pages
 
         public IActionResult OnPostAddReservation()
         {
-            var newReserva = new Reserva
+            var newReserva = new ReservaForEvent
             {
                 Id = CurrentPackage.Reservas.Count + 1,
                 PacoteTuristicoId = CurrentPackage.Id,
@@ -53,5 +53,6 @@ namespace CityBreaks.Agency.Pages
 
             return Page();
         }
+
     }
 }
