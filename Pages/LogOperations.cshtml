@@ -1,0 +1,50 @@
+﻿@page
+@model CityBreaks.Agency.Pages.LogOperationsModel
+@{
+	ViewData["Title"] = "Registro de Operações";
+}
+<div class="container mt-4">
+    <h1 class="mb-4">Registro de Operações (Multicast Delegate)</h1>
+    <p>Informe uma mensagem para registrar uma operação do sistema. O log será enviado para o console, para um arquivo e para a memória.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" asp-page-handler="RecordLog">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="LogMessage"></label>
+                    <input asp-for="LogMessage" class="form-control" />
+                    <span asp-validation-for="LogMessage" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Registrar Operação</button>
+            </form>
+
+            <form method="post" asp-page-handler="ClearMemoryLogs" class="mt-2">
+                <button type="submit" class="btn btn-warning">Limpar Logs em Memória</button>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Logs em Memória:</h2>
+    @if (Model.MemoryLogsDisplay == null || !Model.MemoryLogsDisplay.Any())
+    {
+        <p>Nenhum log em memória.</p>
+    }
+    else
+    {
+        <ul class="list-group">
+            @foreach (var log in Model.MemoryLogsDisplay)
+            {
+                <li class="list-group-item">@log</li>
+            }
+        </ul>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ }
