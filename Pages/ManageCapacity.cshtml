@@ -1,0 +1,34 @@
+﻿@page
+@model CityBreaks.Agency.Pages.ManageCapacityModel
+@{
+	ViewData["Title"] = "Gerenciar Capacidade do Pacote";
+}
+<div class="container mt-4">
+    <h1 class="mb-4">Gerenciar Capacidade do Pacote: @Model.CurrentPackage.Titulo</h1>
+    <p>ID do Pacote: @Model.CurrentPackage.Id</p>
+    <p>Capacidade Máxima: @Model.CurrentPackage.CapacidadeMaxima</p>
+    <p>Reservas Atuais: @Model.CurrentPackage.Reservas.Count</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" asp-page-handler="AddReservation">
+                <button type="submit" class="btn btn-primary">Adicionar Uma Reserva</button>
+            </form>
+
+            <h3 class="mt-4">Histórico de Reservas Simulado:</h3>
+            @if (!Model.CurrentPackage.Reservas.Any())
+            {
+                <p>Nenhuma reserva adicionada ainda.</p>
+            }
+            else
+            {
+                <ul class="list-group">
+                    @foreach (var reserva in Model.CurrentPackage.Reservas)
+                    {
+                        <li class="list-group-item">Reserva ID: @reserva.Id - Data: @reserva.DataReserva.ToString("dd/MM/yyyy HH:mm:ss")</li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
