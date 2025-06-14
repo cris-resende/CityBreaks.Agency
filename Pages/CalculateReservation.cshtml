@@ -1,0 +1,46 @@
+﻿@page
+@model CityBreaks.Agency.Pages.CalculateReservationModel
+@{
+	ViewData["Title"] = "Calcular Reserva";
+}
+<div class="container mt-4">
+    <h1 class="mb-4">Calcular Valor Total da Reserva</h1>
+    <p>Informe o número de diárias e o valor da diária para calcular o valor total.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NumberOfNights"></label>
+                    <input asp-for="NumberOfNights" class="form-control" type="number" />
+                    <span asp-validation-for="NumberOfNights" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DailyRateInt"></label>
+                    <input asp-for="DailyRateInt" class="form-control" type="number" step="1" />
+                    <span asp-validation-for="DailyRateInt" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Calcular Reserva</button>
+            </form>
+
+            @if (Model.TotalReservationValue > 0)
+            {
+                <div class="alert alert-success mt-4" role="alert">
+                    Número de Diárias: @Model.NumberOfNights<br />
+                    Valor da Diária: R$ @Model.DailyRateInt.ToString("F2")<br />
+                    <strong>Valor Total da Reserva: R$ @Model.TotalReservationValue.ToString("F2")</strong>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ }
