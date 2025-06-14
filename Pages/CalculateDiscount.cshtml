@@ -1,0 +1,39 @@
+﻿@page
+@model CityBreaks.Agency.Pages.CalculateDiscountModel
+@{
+	ViewData["Title"] = "Cálculo de Desconto";
+}
+<div class="container mt-4">
+    <h1 class="mb-4">Calcular Desconto de 10%</h1>
+    <p>Informe o preço original da diária para aplicar o desconto.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="OriginalPrice"></label>
+                    <input asp-for="OriginalPrice" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Calcular Desconto</button>
+            </form>
+
+            @if (Model.DiscountedPrice > 0)
+            {
+                <div class="alert alert-success mt-4" role="alert">
+                    Preço Original: R$ @Model.OriginalPrice.ToString("F2")<br />
+                    Preço com Desconto (10%): R$ @Model.DiscountedPrice.ToString("F2")
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ }
