@@ -1,0 +1,95 @@
+﻿@page
+@model CityBreaks.Agency.Pages.ViewNotesModel
+@{
+	ViewData["Title"] = "Sistema de Notas";
+}
+<div class="container mt-4">
+    <h1 class="mb-4">Sistema de Notas</h1>
+    <p>Crie, visualize e gerencie suas anotações textuais.</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Criar Nova Nota
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="CreateNote">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="NoteInput.Title"></label>
+                            <input asp-for="NoteInput.Title" class="form-control" />
+                            <span asp-validation-for="NoteInput.Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="NoteInput.Content"></label>
+                            <textarea asp-for="NoteInput.Content" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="NoteInput.Content" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Salvar Nota</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Notas Disponíveis
+                </div>
+                <div class="card-body">
+                    @if (Model.AvailableNotes == null || !Model.AvailableNotes.Any())
+                    {
+                        <p>Nenhuma nota disponível ainda. Crie uma!</p>
+                    }
+                    else
+                    {
+                        <ul class="list-group">
+                            @foreach (var noteFileName in Model.AvailableNotes)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @noteFileName
+                                    <a asp-page="/ViewNotes" asp-route-fileName="@noteFileName" class="btn btn-sm btn-info">Visualizar</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.SelectedNoteContent))
+    {
+        <div class="card mt-4">
+            <div class="card-header">
+                Conteúdo da Nota: @Model.SelectedNoteFileName
+            </div>
+            <div class="card-body bg-light">
+                <pre style="white-space: pre-wrap; word-wrap: break-word;">@Html.Raw(Model.SelectedNoteContent.Replace(Environment.NewLine, "<br />"))</pre>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ }
