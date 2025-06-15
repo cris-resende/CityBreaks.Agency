@@ -20,6 +20,27 @@ namespace CityBreaks.Agency.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Cliente>()
+                .HasMany(c => c.Reservas)
+                .WithOne(r => r.Cliente)
+                .HasForeignKey(r => r.ClienteId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PacoteTuristico>()
+                .HasMany(p => p.Reservas)
+                .WithOne(r => r.PacoteTuristico)
+                .HasForeignKey(r => r.PacoteTuristicoId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PaisDestino>()
+                .HasMany(pd => pd.Cidades)
+                .WithOne(cd => cd.Pais)
+                .HasForeignKey(cd => cd.PaisDestinoId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<PacoteTuristico>()
                 .HasMany(p => p.Destinos)
                 .WithMany(cd => cd.PacotesTuristicos);
