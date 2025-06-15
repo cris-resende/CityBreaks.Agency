@@ -29,7 +29,9 @@ namespace CityBreaks.Agency.Pages.PacotesTuristicos
                 return NotFound();
             }
 
-            var pacoteturistico = await _context.PacotesTuristicos.FirstOrDefaultAsync(m => m.Id == id);
+            var pacoteturistico = await _context.PacotesTuristicos
+                                               .Where(m => m.DeletedAt == null)
+                                               .FirstOrDefaultAsync(m => m.Id == id);
 
             if (pacoteturistico == null)
             {
@@ -52,9 +54,9 @@ namespace CityBreaks.Agency.Pages.PacotesTuristicos
             var pacoteturistico = await _context.PacotesTuristicos.FindAsync(id);
             if (pacoteturistico != null)
             {
-                PacoteTuristico = pacoteturistico;
-                _context.PacotesTuristicos.Remove(PacoteTuristico);
+                pacoteturistico.DeletedAt = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Pacote Turístico deletado (soft delete) com sucesso!";
             }
 
             return RedirectToPage("./Index");

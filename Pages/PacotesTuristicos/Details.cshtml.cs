@@ -31,6 +31,7 @@ namespace CityBreaks.Agency.Pages.PacotesTuristicos
             var pacoteturistico = await _context.PacotesTuristicos
                                                .Include(p => p.Destinos)
                                                    .ThenInclude(d => d.Pais)
+                                               .Where(p => p.DeletedAt == null)
                                                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (pacoteturistico == null)

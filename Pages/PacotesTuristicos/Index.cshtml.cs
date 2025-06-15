@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CityBreaks.Agency.Data;
 using CityBreaks.Agency.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CityBreaks.Agency.Pages.PacotesTuristicos
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly CityBreaks.Agency.Data.CityBreakAgencyContext _context;
@@ -27,6 +29,7 @@ namespace CityBreaks.Agency.Pages.PacotesTuristicos
             {
                 PacoteTuristico = await _context.PacotesTuristicos
                                                .Include(p => p.Destinos)
+                                               .Where(p => p.DeletedAt == null)
                                                .ToListAsync();
             }
         }

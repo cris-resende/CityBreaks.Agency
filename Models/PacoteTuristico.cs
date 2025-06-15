@@ -29,7 +29,8 @@ namespace CityBreaks.Agency.Models
         public decimal Preco { get; set; }
 
         public List<CidadeDestino> Destinos { get; set; } = new List<CidadeDestino>();
-
         public List<Reserva> Reservas { get; set; } = new List<Reserva>();
+
+        public DateTime? DeletedAt { get; set; }
     }
 }

@@ -1,10 +1,17 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Bem-vindo";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1 class="display-4">Bem-vindo à CityBreaks.Agency!</h1>
+    <p class="lead">Sua plataforma completa para gerenciar pacotes turísticos, clientes e reservas.</p>
+    <hr class="my-4">
+    <p>Explore nossas funcionalidades:</p>
+    <p class="lead">
+        <a asp-page="/PacotesTuristicos/Index" class="btn btn-primary btn-lg me-3" role="button">Gerenciar Pacotes</a>
+        <a asp-page="/CreateCliente" class="btn btn-outline-primary btn-lg" role="button">Cadastrar Cliente</a>
+    </p>
+    <p class="mt-4 text-muted">Acesse o menu superior para outras funcionalidades.</p>
 </div>
