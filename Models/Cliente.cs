@@ -15,5 +15,6 @@ namespace CityBreaks.Agency.Models
         [EmailAddress(ErrorMessage = "E-mail inválido.")]
         [Display(Name = "E-mail")]
         public string Email { get; set; } = string.Empty;
+        public List<Reserva> Reservas { get; set; } = new List<Reserva>();
     }
 }

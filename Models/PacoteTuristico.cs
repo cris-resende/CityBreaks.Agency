@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace CityBreaks.Agency.Models
 {
@@ -27,5 +28,8 @@ namespace CityBreaks.Agency.Models
         [Display(Name = "Preço (R$)")]
         public decimal Preco { get; set; }
 
+        public List<CidadeDestino> Destinos { get; set; } = new List<CidadeDestino>();
+
+        public List<Reserva> Reservas { get; set; } = new List<Reserva>();
     }
 }
