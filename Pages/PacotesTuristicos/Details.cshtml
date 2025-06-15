@@ -1,0 +1,61 @@
+﻿@page
+@model CityBreaks.Agency.Pages.PacotesTuristicos.DetailsModel
+
+@{
+    ViewData["Title"] = "Detalhes do Pacote";
+}
+
+<h1>Detalhes do Pacote</h1>
+
+<div>
+    <h4>Pacote Turístico</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PacoteTuristico.Titulo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PacoteTuristico.Titulo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PacoteTuristico.DataInicio)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.PacoteTuristico.DataInicio.ToString("dd/MM/yyyy")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PacoteTuristico.CapacidadeMaxima)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PacoteTuristico.CapacidadeMaxima)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PacoteTuristico.Preco)
+        </dt>
+        <dd class="col-sm-10">
+            R$ @Model.PacoteTuristico.Preco.ToString("N2")
+        </dd>
+        <dt class="col-sm-2">
+            Destinos
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.PacoteTuristico.Destinos != null && Model.PacoteTuristico.Destinos.Any())
+            {
+                <ul>
+                    @foreach (var destino in Model.PacoteTuristico.Destinos)
+                    {
+                        <li>@destino.Nome (@destino.Pais.Nome)</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>Nenhum destino associado.</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.PacoteTuristico.Id">Editar</a> |
+    <a asp-page="./Index">Voltar para a Lista</a>
+</div>

@@ -1,0 +1,61 @@
+﻿@page
+@model CityBreaks.Agency.Pages.PacotesTuristicos.IndexModel
+
+@{
+    ViewData["Title"] = "Pacotes Turísticos";
+}
+
+<h1>Pacotes Turísticos</h1>
+
+<p>
+    <a asp-page="Create">Cadastrar Novo Pacote</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PacoteTuristico[0].Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PacoteTuristico[0].DataInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PacoteTuristico[0].CapacidadeMaxima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PacoteTuristico[0].Preco)
+            </th>
+            <th>
+                Destinos
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PacoteTuristico)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @item.DataInicio.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CapacidadeMaxima)
+                </td>
+                <td>
+                    R$ @item.Preco.ToString("N2")
+                </td>
+                <td>
+                    @item.Destinos.Count
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Deletar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
