@@ -1,4 +1,5 @@
 using CityBreaks.Agency.Models;
+using CityBreaks.Agency.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,9 +10,7 @@ namespace CityBreaks.Agency.Pages
         [BindProperty]
         public Cliente Cliente { get; set; } = new Cliente();
 
-        public void OnGet()
-        {
-        }
+        public void OnGet(){}
 
         public IActionResult OnPost()
         {
@@ -20,9 +19,10 @@ namespace CityBreaks.Agency.Pages
                 return Page();
             }
 
-            Console.WriteLine($"[CADASTRO SUCESSO] Cliente '{Cliente.Nome}' com e-mail '{Cliente.Email}' cadastrado.");
+            ClientRepositoryForDemo.Add(Cliente);
+            Console.WriteLine($"[CADASTRO SUCESSO] Cliente '{Cliente.Nome}' com e-mail '{Cliente.Email}' cadastrado (ID: {Cliente.Id}).");
 
-            TempData["SuccessMessage"] = $"Cliente '{Cliente.Nome}' cadastrado com sucesso!";
+            TempData["SuccessMessage"] = $"Cliente '{Cliente.Nome}' cadastrado com sucesso (ID: {Cliente.Id})!";
             return RedirectToPage("/Index");
         }
     }

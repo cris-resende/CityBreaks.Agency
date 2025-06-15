@@ -1,0 +1,28 @@
+﻿@page "/ClienteDetails/{id:int}"
+@model CityBreaks.Agency.Pages.ClienteDetailsModel
+@{
+	ViewData["Title"] = "Detalhes do Cliente";
+}
+<div class="container mt-4">
+    @if (Model.Cliente == null)
+    {
+        <div class="alert alert-warning" role="alert">
+            Cliente não encontrado.
+        </div>
+    }
+    else
+    {
+        <h1 class="mb-4">Detalhes do Cliente: @Model.Cliente.Nome</h1>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">ID: @Model.Cliente.Id</h5>
+                <p class="card-text"><strong>Nome:</strong> @Model.Cliente.Nome</p>
+                <p class="card-text"><strong>E-mail:</strong> @Model.Cliente.Email</p>
+            </div>
+        </div>
+    }
+    <div class="mt-4">
+        <a asp-page="/Index" class="btn btn-secondary">Voltar para a lista principal</a>
+    </div>
+</div>
